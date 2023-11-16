@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TraductorService {
 
-    public static String decodeMorse(TranslationRequest request) {
-        String cadena = request.getSentence();
+    public String decodeMorse(String cadena) {
         DecodeMorse decodeMorse = new DecodeMorse();
 
         try {
@@ -23,7 +22,7 @@ public class TraductorService {
     }
 
     public String Morse2Human(TranslationRequest request) {
-        String cadena = request.getSentence();
+        String cadena = request.getText();
         Morse2Human morse2Human = new Morse2Human();
 
         try {
@@ -36,7 +35,7 @@ public class TraductorService {
     }
 
     public String Human2Morse(TranslationRequest request) {
-        String cadena = request.getSentence();
+        String cadena = request.getText();
         Human2Morse human2Morse = new Human2Morse();
 
         try {

@@ -1,9 +1,9 @@
 package com.example.ChallengeMELI.Model;
 
 public class TranslationRequest {
-    private String sentence;
+    private String text;
 
-    public String getSentence() {
-        return sentence;
+    public String getText() {
+        return text;
     }
 }

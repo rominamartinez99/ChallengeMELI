@@ -1,13 +1,16 @@
 package com.example.ChallengeMELI.Model;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MapTranslations {
-    private static final Map<Character,String> human2MorseMap = new LinkedHashMap<>();
-    private static final Map<String,Character> morse2HumanMap = new LinkedHashMap<>();
+    private final Map<Character,String> human2MorseMap = new HashMap<>();
+    private final Map<String,Character> morse2HumanMap = new HashMap<>();
 
-    public MapTranslations(){
+    private static MapTranslations instance = null;
+
+    private MapTranslations(){
         human2MorseMap.put('A', ".-");
         human2MorseMap.put('B', "-...");
         human2MorseMap.put('C', "-.-.");
@@ -51,11 +54,19 @@ public class MapTranslations {
         }
     }
 
-    public static Map<Character, String> getMapHuman2Morse() {
-        return new LinkedHashMap<>(human2MorseMap);
+    public static MapTranslations getInstance(){
+        if(instance == null){
+            instance = new MapTranslations();
+        }
+
+        return instance;
     }
 
-    public static Map<String, Character> getMapMorse2Human() {
-        return new LinkedHashMap<>(morse2HumanMap);
+    public Map<Character, String> getMapHuman2Morse() {
+        return getInstance().human2MorseMap;
+    }
+
+    public Map<String, Character> getMapMorse2Human() {
+        return getInstance().morse2HumanMap;
     }
 }

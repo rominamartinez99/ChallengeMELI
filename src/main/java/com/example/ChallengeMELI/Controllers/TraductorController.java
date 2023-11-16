@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/translate")
 public class TraductorController {
 
     private final TraductorService servicio;
@@ -16,16 +16,17 @@ public class TraductorController {
         this.servicio = servicio;
     }
 
-    @PostMapping("/decodeMorse")
+    @PostMapping("/bits2morse")
     public String decodeMorse(@RequestBody TranslationRequest request) {
-        return servicio.decodeMorse(request);
+        String cadena = request.getText();
+        return servicio.decodeMorse(cadena);
     }
-    @PostMapping("/morse2human")
+    @PostMapping("/2human")
     public String obtenerMorse2Human(@RequestBody TranslationRequest request) {
         return servicio.Morse2Human(request);
     }
 
-    @PostMapping ("/human2morse")
+    @PostMapping ("/2morse")
     public String obtenerHuman2Morse(@RequestBody TranslationRequest request) {
         return servicio.Human2Morse(request);
     }

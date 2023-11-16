@@ -16,12 +16,11 @@ public class Human2Morse implements ITraductor{
 
     @Override
     public String translate(String bitSequence) {
-        MapTranslations mapH2M = new MapTranslations();
 
         char[] arr = bitSequence.toUpperCase().toCharArray();
         StringBuilder translation = new StringBuilder();
         for(char ch : arr){
-            translation.append(mapH2M.getMapHuman2Morse().get(ch));
+            translation.append(MapTranslations.getInstance().getMapHuman2Morse().get(ch));
         }
 
         return translation.toString();

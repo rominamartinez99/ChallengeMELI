@@ -15,14 +15,13 @@ public class Morse2Human implements ITraductor{
 
     @Override
     public String translate(String bitSequence) {
-        MapTranslations mapM2H = new MapTranslations();
         String[] morseWords = bitSequence.split("  ");  // Dos espacios como separador de palabras
         StringBuilder translation = new StringBuilder();
 
         for (String morseWord : morseWords) {
             String[] morseChars = morseWord.split(" ");
             for (String morseChar : morseChars) {
-                Character humanCharacter = mapM2H.getMapMorse2Human().get(morseChar);
+                Character humanCharacter = MapTranslations.getInstance().getMapMorse2Human().get(morseChar);
                 if (humanCharacter != null) {
                     translation.append(humanCharacter);
                 } else {
