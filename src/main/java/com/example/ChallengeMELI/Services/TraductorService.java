@@ -21,8 +21,7 @@ public class TraductorService {
         }
     }
 
-    public String Morse2Human(TranslationRequest request) {
-        String cadena = request.getText();
+    public String Morse2Human(String cadena) {
         Morse2Human morse2Human = new Morse2Human();
 
         try {
@@ -34,8 +33,7 @@ public class TraductorService {
         }
     }
 
-    public String Human2Morse(TranslationRequest request) {
-        String cadena = request.getText();
+    public String Human2Morse(String cadena) {
         Human2Morse human2Morse = new Human2Morse();
 
         try {
