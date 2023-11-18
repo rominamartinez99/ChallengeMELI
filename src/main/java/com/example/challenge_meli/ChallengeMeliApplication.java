@@ -1,8 +1,7 @@
-package com.example.ChallengeMELI;
+package com.example.challenge_meli;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class ChallengeMeliApplication {

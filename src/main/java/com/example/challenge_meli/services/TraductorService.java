@@ -1,9 +1,8 @@
-package com.example.ChallengeMELI.Services;
+package com.example.challenge_meli.services;
 
-import com.example.ChallengeMELI.Model.*;
-import com.example.ChallengeMELI.Model.Translators.DecodeMorse;
-import com.example.ChallengeMELI.Model.Translators.Human2Morse;
-import com.example.ChallengeMELI.Model.Translators.Morse2Human;
+import com.example.challenge_meli.model.translators.DecodeMorse;
+import com.example.challenge_meli.model.translators.Human2Morse;
+import com.example.challenge_meli.model.translators.Morse2Human;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,7 +20,7 @@ public class TraductorService {
         }
     }
 
-    public String Morse2Human(String cadena) {
+    public String morse2Human(String cadena) {
         Morse2Human morse2Human = new Morse2Human();
 
         try {
@@ -33,7 +32,7 @@ public class TraductorService {
         }
     }
 
-    public String Human2Morse(String cadena) {
+    public String human2Morse(String cadena) {
         Human2Morse human2Morse = new Human2Morse();
 
         try {

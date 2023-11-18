@@ -1,11 +1,9 @@
-package com.example.ChallengeMELI.Services;
+package com.example.challenge_meli.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TraductorServiceTest {
@@ -24,7 +22,7 @@ class TraductorServiceTest {
     @Test
     void morse2Human() {
         String morse = ".... --- .-.. .-  -- . .-.. ..";
-        String toHuman = traductorService.Morse2Human(morse);
+        String toHuman = traductorService.morse2Human(morse);
 
         Assertions.assertEquals("HOLA MELI",toHuman);
     }
@@ -32,7 +30,7 @@ class TraductorServiceTest {
     @Test
     void human2Morse() {
         String human = "hola meli";
-        String toMorse = traductorService.Human2Morse(human);
+        String toMorse = traductorService.human2Morse(human);
 
         Assertions.assertEquals(".... --- .-.. .-  -- . .-.. ..",toMorse);
     }

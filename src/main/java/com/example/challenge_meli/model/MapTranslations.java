@@ -1,7 +1,6 @@
-package com.example.ChallengeMELI.Model;
+package com.example.challenge_meli.model;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MapTranslations {

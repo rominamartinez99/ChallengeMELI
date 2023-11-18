@@ -1,10 +1,10 @@
-package com.example.ChallengeMELI.Model.Translators;
+package com.example.challenge_meli.model.translators;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class DecodeMorse {
+public class DecodeMorse implements ITraductor{
 
     private static int shortZero;
     private static int mediumZero;
@@ -15,6 +15,7 @@ public class DecodeMorse {
     public DecodeMorse() {
     }
 
+    @Override
     public void validateInput(String bitSequence) {
         if (!bitSequence.matches("[01]+")) {
             throw new IllegalArgumentException("La secuencia debe contener solo caracteres '0' y '1'");
@@ -24,8 +25,8 @@ public class DecodeMorse {
     public static void calibrarTraductor(List<String> listSeparatedByZeros) {
         List<String> onesList = filterBySubstring(listSeparatedByZeros, "1");
         List<String> zerosList = filterBySubstring(listSeparatedByZeros, "0");
-        List<Integer> zeroCounts = countDigitsPerPosition(zerosList, '0');
-        List<Integer> oneCounts = countDigitsPerPosition(onesList, '1');
+        List<Integer> zeroCounts = countDigitsPerPosition(zerosList);
+        List<Integer> oneCounts = countDigitsPerPosition(onesList);
         int maxOne = oneCounts.stream().mapToInt(Integer::intValue).max().orElse(0);
         int minOne = oneCounts.stream().mapToInt(Integer::intValue).min().orElse(0);
         umbralOne = (maxOne + minOne) / 2;
@@ -35,11 +36,11 @@ public class DecodeMorse {
         mediumZero = (longZero + shortZero) / 2;
     }
 
-    public static String PuntoOraya(String subcadena) {
+    public static String puntoOraya(String subcadena) {
         return subcadena.length() < umbralOne ? "." : "-";
     }
 
-    public static String AmountSpaces(String subcadena) {
+    public static String amountSpaces(String subcadena) {
         int valor = subcadena.length();
 
         int diferenciaMaximo = Math.abs(longZero - valor);
@@ -71,10 +72,10 @@ public class DecodeMorse {
     private static List<String> filterBySubstring(List<String> list, String substring) {
         return list.stream()
                 .filter(element -> element.contains(substring))
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    private static List<Integer> countDigitsPerPosition(List<String> digitList, char digit) {
+    private static List<Integer> countDigitsPerPosition(List<String> digitList) {
         int maxLength = digitList.size();
         int[] countArray = new int[maxLength];
 
@@ -84,8 +85,8 @@ public class DecodeMorse {
         return List.of(Arrays.stream(countArray).boxed().toArray(Integer[]::new));
     }
 
-
-    public static String translate(String bitSequence) {
+    @Override
+    public String translate(String bitSequence) {
         List<String> listSeparatedByZeros = separateByZeros(bitSequence);
         List<String> soloParis = listSeparatedByZeros.subList(0, Math.min(listSeparatedByZeros.size(), 84));
 
@@ -95,11 +96,11 @@ public class DecodeMorse {
 
         StringBuilder morseResult = new StringBuilder();
 
-        for (String subcadena : listSeparatedByZeros) {  //TODO: VALIDAR QUE INGRESO ALGO DESPUES DE PARIS
+        for (String subcadena : listSeparatedByZeros) {
             if (subcadena.contains("0")) {
-                morseResult.append(AmountSpaces(subcadena));
+                morseResult.append(amountSpaces(subcadena));
             } else if (subcadena.contains("1")) {
-                morseResult.append(PuntoOraya(subcadena));
+                morseResult.append(puntoOraya(subcadena));
             }
         }
         return morseResult.toString();

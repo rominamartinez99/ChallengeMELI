@@ -1,4 +1,4 @@
-package com.example.ChallengeMELI;
+package com.example.challenge_meli;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

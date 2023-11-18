@@ -1,4 +1,4 @@
-package com.example.ChallengeMELI.Model.Translators;
+package com.example.challenge_meli.model.translators;
 
 public interface ITraductor {
     void validateInput(String bitSequence);

@@ -1,6 +1,6 @@
-package com.example.ChallengeMELI.Model.Translators;
+package com.example.challenge_meli.model.translators;
 
-import com.example.ChallengeMELI.Model.MapTranslations;
+import com.example.challenge_meli.model.MapTranslations;
 
 public class Morse2Human implements ITraductor{
     public Morse2Human() {
@@ -15,7 +15,7 @@ public class Morse2Human implements ITraductor{
 
     @Override
     public String translate(String bitSequence) {
-        String[] morseWords = bitSequence.split("  ");  // Dos espacios como separador de palabras
+        String[] morseWords = bitSequence.split(" {2}");  // Dos espacios como separador de palabras
         StringBuilder translation = new StringBuilder();
 
         for (String morseWord : morseWords) {

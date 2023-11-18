@@ -1,6 +1,6 @@
-package com.example.ChallengeMELI.Model.Translators;
+package com.example.challenge_meli.model.translators;
 
-import com.example.ChallengeMELI.Model.MapTranslations;
+import com.example.challenge_meli.model.MapTranslations;
 
 public class Human2Morse implements ITraductor{
 

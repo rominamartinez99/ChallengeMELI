@@ -1,4 +1,4 @@
-package com.example.ChallengeMELI.Model;
+package com.example.challenge_meli.model;
 
 public class TranslationRequest {
     private String text;
