@@ -23,9 +23,17 @@ class TraductorServiceTest {
 
     @Test
     void morse2Human() {
+        String morse = ".... --- .-.. .-  -- . .-.. ..";
+        String toHuman = traductorService.Morse2Human(morse);
+
+        Assertions.assertEquals("HOLA MELI",toHuman);
     }
 
     @Test
     void human2Morse() {
+        String human = "hola meli";
+        String toMorse = traductorService.Human2Morse(human);
+
+        Assertions.assertEquals(".... --- .-.. .-  -- . .-.. ..",toMorse);
     }
 }

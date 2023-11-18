@@ -47,7 +47,7 @@ public class MapTranslations {
         human2MorseMap.put('7', "--...");
         human2MorseMap.put('8', "---..");
         human2MorseMap.put('9', "----.");
-        human2MorseMap.put(' ', "  ");
+        human2MorseMap.put(' ', "");
 
         for (Map.Entry<Character, String> entry : human2MorseMap.entrySet()) {
             morse2HumanMap.put(entry.getValue(), entry.getKey());

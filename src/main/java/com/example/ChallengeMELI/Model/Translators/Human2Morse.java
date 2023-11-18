@@ -20,9 +20,9 @@ public class Human2Morse implements ITraductor{
         char[] arr = bitSequence.toUpperCase().toCharArray();
         StringBuilder translation = new StringBuilder();
         for(char ch : arr){
-            translation.append(MapTranslations.getInstance().getMapHuman2Morse().get(ch));
+            translation.append(MapTranslations.getInstance().getMapHuman2Morse().get(ch)).append(" ");
         }
 
-        return translation.toString();
+        return translation.toString().trim();
     }
 }
