@@ -2,10 +2,13 @@ package com.example.challenge_meli.controllers;
 import com.example.challenge_meli.model.TranslationRequest;
 import com.example.challenge_meli.model.TranslationResponse;
 import com.example.challenge_meli.services.TraductorService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/translate")
+@SecurityRequirement(name = "in-memory")
 public class TraductorController {
 
     private final TraductorService servicio;
@@ -16,19 +19,19 @@ public class TraductorController {
     }
 
     @PostMapping("/bits2morse")
-    public TranslationResponse decodeMorse(@RequestBody TranslationRequest request) {
+    public ResponseEntity<TranslationResponse> decodeMorse(@RequestBody TranslationRequest request) {
         String cadena = request.getText();
-        return new TranslationResponse(servicio.decodeMorse(cadena));
+        return ResponseEntity.ok(new TranslationResponse(servicio.decodeMorse(cadena)));
     }
     @PostMapping("/2human")
-    public TranslationResponse obtenerMorse2Human(@RequestBody TranslationRequest request) {
+    public ResponseEntity<TranslationResponse> obtenerMorse2Human(@RequestBody TranslationRequest request) {
         String cadena = request.getText();
-        return new TranslationResponse(servicio.morse2Human(cadena));
+        return ResponseEntity.ok(new TranslationResponse(servicio.morse2Human(cadena)));
     }
 
     @PostMapping ("/2morse")
-    public TranslationResponse obtenerHuman2Morse(@RequestBody TranslationRequest request) {
+    public ResponseEntity<TranslationResponse> obtenerHuman2Morse(@RequestBody TranslationRequest request) {
         String cadena = request.getText();
-        return new TranslationResponse(servicio.human2Morse(cadena));
+        return ResponseEntity.ok(new TranslationResponse(servicio.human2Morse(cadena)));
     }
 }
