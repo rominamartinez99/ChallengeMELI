@@ -4,6 +4,8 @@ import com.example.challenge_meli.model.TranslationResponse;
 import com.example.challenge_meli.services.TraductorService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,9 +20,15 @@ public class TraductorController {
         this.servicio = servicio;
     }
 
+    private String obtenerNombreUsuario() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
     @PostMapping("/bits2morse")
     public ResponseEntity<TranslationResponse> decodeMorse(@RequestBody TranslationRequest request) {
         String cadena = request.getText();
+        String username = obtenerNombreUsuario();
         return ResponseEntity.ok(new TranslationResponse(servicio.decodeMorse(cadena)));
     }
     @PostMapping("/2human")
