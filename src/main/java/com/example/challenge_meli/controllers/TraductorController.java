@@ -4,8 +4,6 @@ import com.example.challenge_meli.model.TranslationResponse;
 import com.example.challenge_meli.services.TraductorService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,33 +11,34 @@ import org.springframework.web.bind.annotation.*;
 @SecurityRequirement(name = "in-memory")
 public class TraductorController {
 
-    private final TraductorService servicio;
+    private final TraductorService traductorService;
 
     // Inyección de dependencias del servicio
     public TraductorController(TraductorService servicio) {
-        this.servicio = servicio;
+        this.traductorService = servicio;
     }
 
-    private String obtenerNombreUsuario() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+    @PostMapping("/calibrate")
+    public ResponseEntity<String> calibrate(@RequestBody TranslationRequest request) {
+        String bitSequence = request.getText();
+        traductorService.calibrate(bitSequence);
+        return ResponseEntity.ok(traductorService.calibrate(bitSequence));
     }
 
     @PostMapping("/bits2morse")
     public ResponseEntity<TranslationResponse> decodeMorse(@RequestBody TranslationRequest request) {
-        String cadena = request.getText();
-        String username = obtenerNombreUsuario();
-        return ResponseEntity.ok(new TranslationResponse(servicio.decodeMorse(cadena)));
+        String bitSequence = request.getText();
+        return ResponseEntity.ok(new TranslationResponse(traductorService.decodeMorse(bitSequence)));
     }
     @PostMapping("/2human")
-    public ResponseEntity<TranslationResponse> obtenerMorse2Human(@RequestBody TranslationRequest request) {
+    public ResponseEntity<TranslationResponse> morse2Human(@RequestBody TranslationRequest request) {
         String cadena = request.getText();
-        return ResponseEntity.ok(new TranslationResponse(servicio.morse2Human(cadena)));
+        return ResponseEntity.ok(new TranslationResponse(traductorService.morse2Human(cadena)));
     }
 
     @PostMapping ("/2morse")
-    public ResponseEntity<TranslationResponse> obtenerHuman2Morse(@RequestBody TranslationRequest request) {
+    public ResponseEntity<TranslationResponse> human2Morse(@RequestBody TranslationRequest request) {
         String cadena = request.getText();
-        return ResponseEntity.ok(new TranslationResponse(servicio.human2Morse(cadena)));
+        return ResponseEntity.ok(new TranslationResponse(traductorService.human2Morse(cadena)));
     }
 }

@@ -20,6 +20,21 @@ public class TraductorService {
         }
     }
 
+    public String calibrate(String bitSequence) {
+        DecodeMorse decodeMorse = new DecodeMorse();
+
+        try {
+            decodeMorse.validateInput(bitSequence);
+            decodeMorse.calibrateTranslator(bitSequence);
+            String message = "Calibración lista! Ya puedes enviar tu mensaje.";
+            return message;
+
+        } catch (IllegalArgumentException e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+
     public String morse2Human(String cadena) {
         Morse2Human morse2Human = new Morse2Human();
 
