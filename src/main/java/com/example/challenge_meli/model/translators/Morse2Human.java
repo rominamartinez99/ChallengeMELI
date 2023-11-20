@@ -8,15 +8,15 @@ public class Morse2Human implements ITraductor{
     }
 
     @Override
-    public void validateInput(String bitSequence) throws InvalidInputException {
-        if (!bitSequence.matches("[\\.\\- ]+")) {
+    public void validateInput(String input) throws InvalidInputException {
+        if (!input.matches("[\\.\\- ]+")) {
             throw new InvalidInputException("Solo se pueden ingresar puntos, guiones y espacios");
         }
     }
 
     @Override
-    public String translate(String morseSequence) throws InvalidInputException {
-        String[] morseWords = morseSequence.split(" {2}");  // Dos espacios como separador de palabras
+    public String translate(String text) throws InvalidInputException {
+        String[] morseWords = text.split(" {2}");  // Dos espacios como separador de palabras
         StringBuilder translation = new StringBuilder();
 
         for (String morseWord : morseWords) {

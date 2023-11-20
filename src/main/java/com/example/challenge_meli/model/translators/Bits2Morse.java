@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 
 public class Bits2Morse implements ITraductor{
-
-
     private static int shortZero;
     private static int mediumZero;
     private static int longZero;
@@ -20,8 +18,8 @@ public class Bits2Morse implements ITraductor{
     }
 
     @Override
-    public void validateInput(String bitSequence) throws InvalidInputException {
-        if (!bitSequence.matches("^[01]*1[01]*$")) {
+    public void validateInput(String input) throws InvalidInputException {
+        if (!input.matches("^[01]*1[01]*$")) {
             throw new InvalidInputException("La secuencia debe contener solo caracteres '0' y '1'. Además como mínimo debe haber un pulso");
         }
     }
@@ -38,21 +36,21 @@ public class Bits2Morse implements ITraductor{
         List<String> zerosList = filterBySubstring(listSeparatedByZeros, "0");
         Integer[] zeroCounts = countDigitsPerPosition(zerosList);
         Integer[] oneCounts = countDigitsPerPosition(onesList);
-        oneThreshold = calcularMediana(oneCounts);
+        oneThreshold = calculateMedian(oneCounts);
 
         longZero = Arrays.stream(zeroCounts).mapToInt(Integer::intValue).max().orElse(0);
         shortZero = Arrays.stream(zeroCounts).mapToInt(Integer::intValue).min().orElse(0);
         mediumZero = (longZero + shortZero) / 2;
     }
 
-    public static double calcularMediana(Integer[] array) {
+    public static double calculateMedian(Integer[] array) {
         Arrays.sort(array);
         int n = array.length;
 
         if (n % 2 == 0) {
-            int medio1 = array[n / 2 - 1];
-            int medio2 = array[n / 2];
-            return (double) (medio1 + medio2) / 2;
+            int medium1 = array[n / 2 - 1];
+            int medium2 = array[n / 2];
+            return (double) (medium1 + medium2) / 2;
         } else {
             return array[n / 2];
         }
@@ -109,9 +107,9 @@ public class Bits2Morse implements ITraductor{
     }
 
     @Override
-    public String translate(String bitSequence) throws InvalidTranslationException {
+    public String translate(String text) throws InvalidTranslationException {
         validateInput();
-        List<String> listSeparatedByZeros = separateByZeros(bitSequence);
+        List<String> listSeparatedByZeros = separateByZeros(text);
 
         StringBuilder morseResult = new StringBuilder();
 

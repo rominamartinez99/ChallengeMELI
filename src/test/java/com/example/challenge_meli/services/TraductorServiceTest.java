@@ -18,6 +18,7 @@ class TraductorServiceTest {
 
     @Autowired
     TraductorService traductorService = new TraductorService();
+    CaliperService caliperService = new CaliperService();
     Bits2Morse decodeMorse = new Bits2Morse();
     Morse2Human morse2Human = new Morse2Human();
     Human2Morse human2Morse = new Human2Morse();
@@ -32,9 +33,9 @@ class TraductorServiceTest {
     }
 
     @Test
-    void morse2Human() throws InvalidInputException {
+    void translate2Human() throws InvalidInputException {
         String morse = ".... --- .-.. .-  -- . .-.. ..";
-        String toHuman = traductorService.morse2Human(morse);
+        String toHuman = traductorService.translate2Human(morse);
 
         Assertions.assertEquals("HOLA MELI",toHuman);
     }
@@ -73,7 +74,7 @@ class TraductorServiceTest {
     @BeforeEach
     void setUp() throws InvalidInputException {
         String parisWords = "110011111001111100110000011001111100000110011111001100000110011000001100110011000000000011001111100111110011000001100111110000011001111100110000011001100000110011001100000000001100111110011111001100000110011111000001100111110011000001100110000011001100110000000000";
-        traductorService.calibrate(parisWords);
+        caliperService.calibrate(parisWords);
     }
 
     @Test

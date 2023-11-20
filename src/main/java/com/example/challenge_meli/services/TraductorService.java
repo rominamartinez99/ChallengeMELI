@@ -10,31 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class TraductorService {
 
-    public String decodeBits2Morse(String cadena) throws InvalidInputException, InvalidTranslationException {
-        Bits2Morse decodeMorse = new Bits2Morse();
-        decodeMorse.validateInput(cadena);
-        return decodeMorse.translate(cadena);
-    }
-
-    public String calibrate(String bitSequence) throws InvalidInputException{
+    public String decodeBits2Morse(String bitSequence) throws InvalidInputException, InvalidTranslationException {
         Bits2Morse decodeMorse = new Bits2Morse();
         decodeMorse.validateInput(bitSequence);
-        decodeMorse.calibrateTranslator(bitSequence);
-        String message = "Calibración lista! Ya puedes enviar tu mensaje.";
-        return message;
-
+        return decodeMorse.translate(bitSequence);
     }
-
-
-    public String morse2Human(String cadena) throws InvalidInputException{
+    public String translate2Human(String morseText) throws InvalidInputException{
         Morse2Human morse2Human = new Morse2Human();
-        morse2Human.validateInput(cadena);
-        return morse2Human.translate(cadena);
+        morse2Human.validateInput(morseText);
+        return morse2Human.translate(morseText);
     }
 
-    public String human2Morse(String cadena) throws InvalidInputException{
+    public String human2Morse(String humanText) throws InvalidInputException{
         Human2Morse human2Morse = new Human2Morse();
-        human2Morse.validateInput(cadena);
-        return human2Morse.translate(cadena);
+        human2Morse.validateInput(humanText);
+        return human2Morse.translate(humanText);
     }
 }

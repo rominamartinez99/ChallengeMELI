@@ -9,16 +9,16 @@ public class Human2Morse implements ITraductor{
     }
 
     @Override
-    public void validateInput(String bitSequence) throws InvalidInputException {
-        if (!bitSequence.matches("[a-zA-Z0-9 ]+")) {
+    public void validateInput(String input) throws InvalidInputException {
+        if (!input.matches("[a-zA-Z0-9 ]+")) {
             throw new InvalidInputException("No se pueden traducir caracteres especiales");
         }
     }
 
     @Override
-    public String translate(String bitSequence) throws InvalidInputException {
+    public String translate(String text) throws InvalidInputException {
 
-        char[] arr = bitSequence.toUpperCase().toCharArray();
+        char[] arr = text.toUpperCase().toCharArray();
         StringBuilder translation = new StringBuilder();
         for(char ch : arr){
             if (!MapTranslations.getInstance().getMapHuman2Morse().containsKey(ch)) {

@@ -15,15 +15,8 @@ public class TraductorController {
 
     private final TraductorService traductorService;
 
-    // Inyección de dependencias del servicio
     public TraductorController(TraductorService servicio) {
         this.traductorService = servicio;
-    }
-
-    @PostMapping("/calibrate")
-    public ResponseEntity<String> calibrate(@RequestBody TranslationRequest request) throws InvalidInputException {
-        String bitSequence = request.getText();
-        return ResponseEntity.ok(traductorService.calibrate(bitSequence));
     }
 
     @PostMapping("/bits2morse")
@@ -33,13 +26,13 @@ public class TraductorController {
     }
     @PostMapping("/2human")
     public ResponseEntity<TranslationResponse> morse2Human(@RequestBody TranslationRequest request) throws InvalidInputException{
-        String cadena = request.getText();
-        return ResponseEntity.ok(new TranslationResponse(traductorService.morse2Human(cadena)));
+        String text = request.getText();
+        return ResponseEntity.ok(new TranslationResponse(traductorService.translate2Human(text)));
     }
 
     @PostMapping ("/2morse")
     public ResponseEntity<TranslationResponse> human2Morse(@RequestBody TranslationRequest request) throws InvalidInputException{
-        String cadena = request.getText();
-        return ResponseEntity.ok(new TranslationResponse(traductorService.human2Morse(cadena)));
+        String text = request.getText();
+        return ResponseEntity.ok(new TranslationResponse(traductorService.human2Morse(text)));
     }
 }
