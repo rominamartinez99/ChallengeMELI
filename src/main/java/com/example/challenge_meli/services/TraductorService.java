@@ -1,6 +1,8 @@
 package com.example.challenge_meli.services;
 
-import com.example.challenge_meli.model.translators.DecodeMorse;
+import com.example.challenge_meli.model.InvalidInputException;
+import com.example.challenge_meli.model.InvalidTranslationException;
+import com.example.challenge_meli.model.translators.Bits2Morse;
 import com.example.challenge_meli.model.translators.Human2Morse;
 import com.example.challenge_meli.model.translators.Morse2Human;
 import org.springframework.stereotype.Service;
@@ -8,54 +10,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class TraductorService {
 
-    public String decodeMorse(String cadena) {
-        DecodeMorse decodeMorse = new DecodeMorse();
-
-        try {
-            decodeMorse.validateInput(cadena);
-            return decodeMorse.translate(cadena);
-
-        } catch (IllegalArgumentException e) {
-            return "Error: " + e.getMessage();
-        }
+    public String decodeBits2Morse(String cadena) throws InvalidInputException, InvalidTranslationException {
+        Bits2Morse decodeMorse = new Bits2Morse();
+        decodeMorse.validateInput(cadena);
+        return decodeMorse.translate(cadena);
     }
 
-    public String calibrate(String bitSequence) {
-        DecodeMorse decodeMorse = new DecodeMorse();
+    public String calibrate(String bitSequence) throws InvalidInputException{
+        Bits2Morse decodeMorse = new Bits2Morse();
+        decodeMorse.validateInput(bitSequence);
+        decodeMorse.calibrateTranslator(bitSequence);
+        String message = "Calibración lista! Ya puedes enviar tu mensaje.";
+        return message;
 
-        try {
-            decodeMorse.validateInput(bitSequence);
-            decodeMorse.calibrateTranslator(bitSequence);
-            String message = "Calibración lista! Ya puedes enviar tu mensaje.";
-            return message;
-
-        } catch (IllegalArgumentException e) {
-            return "Error: " + e.getMessage();
-        }
     }
 
 
-    public String morse2Human(String cadena) {
+    public String morse2Human(String cadena) throws InvalidInputException{
         Morse2Human morse2Human = new Morse2Human();
-
-        try {
-            morse2Human.validateInput(cadena);
-            return morse2Human.translate(cadena);
-
-        } catch (IllegalArgumentException e) {
-            return "Error: " + e.getMessage();
-        }
+        morse2Human.validateInput(cadena);
+        return morse2Human.translate(cadena);
     }
 
-    public String human2Morse(String cadena) {
+    public String human2Morse(String cadena) throws InvalidInputException{
         Human2Morse human2Morse = new Human2Morse();
-
-        try {
-            human2Morse.validateInput(cadena);
-            return human2Morse.translate(cadena);
-
-        } catch (IllegalArgumentException e) {
-            return "Error: " + e.getMessage();
-        }
+        human2Morse.validateInput(cadena);
+        return human2Morse.translate(cadena);
     }
 }

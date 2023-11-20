@@ -1,5 +1,6 @@
 package com.example.challenge_meli.model.translators;
 
+import com.example.challenge_meli.model.InvalidInputException;
 import com.example.challenge_meli.model.MapTranslations;
 
 public class Morse2Human implements ITraductor{
@@ -7,15 +8,15 @@ public class Morse2Human implements ITraductor{
     }
 
     @Override
-    public void validateInput(String bitSequence) {
+    public void validateInput(String bitSequence) throws InvalidInputException {
         if (!bitSequence.matches("[\\.\\- ]+")) {
-            throw new IllegalArgumentException("Solo se pueden ingresar puntos, guiones y espacios");
+            throw new InvalidInputException("Solo se pueden ingresar puntos, guiones y espacios");
         }
     }
 
     @Override
-    public String translate(String bitSequence) {
-        String[] morseWords = bitSequence.split(" {2}");  // Dos espacios como separador de palabras
+    public String translate(String morseSequence) throws InvalidInputException {
+        String[] morseWords = morseSequence.split(" {2}");  // Dos espacios como separador de palabras
         StringBuilder translation = new StringBuilder();
 
         for (String morseWord : morseWords) {
@@ -25,13 +26,11 @@ public class Morse2Human implements ITraductor{
                 if (humanCharacter != null) {
                     translation.append(humanCharacter);
                 } else {
-                    // Si no hay una correspondencia válida
-                    translation.append("?");
+                    throw new InvalidInputException("No se puede traducir el caracter: " + morseChar);
                 }
             }
-            translation.append(" ");  // Agregar espacio entre palabras en la traducción
+            translation.append(" ");
         }
-
-        return translation.toString().trim();  // Eliminar espacio adicional al final, si lo hay
+        return translation.toString().trim();
     }
 }

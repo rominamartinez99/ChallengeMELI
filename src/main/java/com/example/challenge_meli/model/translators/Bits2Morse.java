@@ -1,10 +1,13 @@
 package com.example.challenge_meli.model.translators;
 
+import com.example.challenge_meli.model.InvalidInputException;
+import com.example.challenge_meli.model.InvalidTranslationException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class DecodeMorse implements ITraductor{
+public class Bits2Morse implements ITraductor{
 
 
     private static int shortZero;
@@ -13,13 +16,19 @@ public class DecodeMorse implements ITraductor{
     private static int oneThreshold;
     private static final String PATTERN_SEPARATOR_BY_ZEROS = "(?=(?!^)0)(?<!0)|(?!0)(?<=0)";
 
-    public DecodeMorse() {
+    public Bits2Morse() {
     }
 
     @Override
-    public void validateInput(String bitSequence) {
+    public void validateInput(String bitSequence) throws InvalidInputException {
         if (!bitSequence.matches("[01]+")) {
-            throw new IllegalArgumentException("La secuencia debe contener solo caracteres '0' y '1'");
+            throw new InvalidInputException("La secuencia debe contener solo caracteres '0' y '1'");
+        }
+    }
+
+    public void validateInput() throws InvalidTranslationException {
+        if ((shortZero == 0 && mediumZero == 0 && longZero == 0)) {
+            throw new InvalidTranslationException("Recordá calibrar previamente para tener una traduccion certera :)");
         }
     }
 
@@ -89,7 +98,8 @@ public class DecodeMorse implements ITraductor{
     }
 
     @Override
-    public String translate(String bitSequence) {
+    public String translate(String bitSequence) throws InvalidTranslationException {
+        validateInput();
         List<String> listSeparatedByZeros = separateByZeros(bitSequence);
 
         StringBuilder morseResult = new StringBuilder();

@@ -1,5 +1,6 @@
 package com.example.challenge_meli.model.translators;
 
+import com.example.challenge_meli.model.InvalidInputException;
 import com.example.challenge_meli.model.MapTranslations;
 
 public class Human2Morse implements ITraductor{
@@ -8,18 +9,21 @@ public class Human2Morse implements ITraductor{
     }
 
     @Override
-    public void validateInput(String bitSequence) {
+    public void validateInput(String bitSequence) throws InvalidInputException {
         if (!bitSequence.matches("[a-zA-Z0-9 ]+")) {
-            throw new IllegalArgumentException("No se pueden traducir caracteres especiales");
+            throw new InvalidInputException("No se pueden traducir caracteres especiales");
         }
     }
 
     @Override
-    public String translate(String bitSequence) {
+    public String translate(String bitSequence) throws InvalidInputException {
 
         char[] arr = bitSequence.toUpperCase().toCharArray();
         StringBuilder translation = new StringBuilder();
         for(char ch : arr){
+            if (!MapTranslations.getInstance().getMapHuman2Morse().containsKey(ch)) {
+                throw new InvalidInputException("No se puede traducir el caracter: " + ch);
+            }
             translation.append(MapTranslations.getInstance().getMapHuman2Morse().get(ch)).append(" ");
         }
 
