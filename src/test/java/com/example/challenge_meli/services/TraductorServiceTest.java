@@ -63,7 +63,7 @@ class TraductorServiceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"110011R001100110000", "110011%001100110000", "1100110 01100110000"})
+    @ValueSource(strings = {"110011R001100110000", "110011%001100110000", "1100110 01100110000", "0000000000", ""})
     void decodeMorseInvalidInput(String bitsInput) {
         Assertions.assertThrows(InvalidInputException.class, () -> {
             decodeMorse.validateInput(bitsInput);

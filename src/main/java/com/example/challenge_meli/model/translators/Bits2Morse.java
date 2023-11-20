@@ -13,7 +13,7 @@ public class Bits2Morse implements ITraductor{
     private static int shortZero;
     private static int mediumZero;
     private static int longZero;
-    private static int oneThreshold;
+    private static double oneThreshold;
     private static final String PATTERN_SEPARATOR_BY_ZEROS = "(?=(?!^)0)(?<!0)|(?!0)(?<=0)";
 
     public Bits2Morse() {
@@ -21,14 +21,14 @@ public class Bits2Morse implements ITraductor{
 
     @Override
     public void validateInput(String bitSequence) throws InvalidInputException {
-        if (!bitSequence.matches("[01]+")) {
-            throw new InvalidInputException("La secuencia debe contener solo caracteres '0' y '1'");
+        if (!bitSequence.matches("^[01]*1[01]*$")) {
+            throw new InvalidInputException("La secuencia debe contener solo caracteres '0' y '1'. Además como mínimo debe haber un pulso");
         }
     }
 
     public void validateInput() throws InvalidTranslationException {
         if ((shortZero == 0 && mediumZero == 0 && longZero == 0)) {
-            throw new InvalidTranslationException("Recordá calibrar previamente para tener una traduccion certera :)");
+            throw new InvalidTranslationException("Recordá calibrar previamente para tener una traducción certera :)");
         }
     }
 
@@ -36,19 +36,30 @@ public class Bits2Morse implements ITraductor{
         List<String> listSeparatedByZeros = separateByZeros(bitSequence);
         List<String> onesList = filterBySubstring(listSeparatedByZeros, "1");
         List<String> zerosList = filterBySubstring(listSeparatedByZeros, "0");
-        List<Integer> zeroCounts = countDigitsPerPosition(zerosList);
-        List<Integer> oneCounts = countDigitsPerPosition(onesList);
-        int maxOne = oneCounts.stream().mapToInt(Integer::intValue).max().orElse(0);
-        int minOne = oneCounts.stream().mapToInt(Integer::intValue).min().orElse(0);
-        oneThreshold = (maxOne + minOne) / 2;
+        Integer[] zeroCounts = countDigitsPerPosition(zerosList);
+        Integer[] oneCounts = countDigitsPerPosition(onesList);
+        oneThreshold = calcularMediana(oneCounts);
 
-        longZero = zeroCounts.stream().mapToInt(Integer::intValue).max().orElse(0);
-        shortZero = zeroCounts.stream().mapToInt(Integer::intValue).min().orElse(0);
+        longZero = Arrays.stream(zeroCounts).mapToInt(Integer::intValue).max().orElse(0);
+        shortZero = Arrays.stream(zeroCounts).mapToInt(Integer::intValue).min().orElse(0);
         mediumZero = (longZero + shortZero) / 2;
     }
 
+    public static double calcularMediana(Integer[] array) {
+        Arrays.sort(array);
+        int n = array.length;
+
+        if (n % 2 == 0) {
+            int medio1 = array[n / 2 - 1];
+            int medio2 = array[n / 2];
+            return (double) (medio1 + medio2) / 2;
+        } else {
+            return array[n / 2];
+        }
+    }
+
     public static String dotOrDah(String substring) {
-        return substring.length() < oneThreshold ? "." : "-";
+        return substring.length() <= oneThreshold ? "." : "-";
     }
 
     public static String amountSpaces(String substring) {
@@ -87,14 +98,14 @@ public class Bits2Morse implements ITraductor{
                 .toList();
     }
 
-    private static List<Integer> countDigitsPerPosition(List<String> digitList) {
+    private static Integer[] countDigitsPerPosition(List<String> digitList) {
         int maxLength = digitList.size();
         int[] countArray = new int[maxLength];
 
         for (int i = 0; i < digitList.size(); i++) {
             countArray[i] = digitList.get(i).length();
         }
-        return List.of(Arrays.stream(countArray).boxed().toArray(Integer[]::new));
+        return Arrays.stream(countArray).boxed().toArray(Integer[]::new);
     }
 
     @Override
