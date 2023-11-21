@@ -6,12 +6,15 @@ import com.example.challenge_meli.model.translators.Bits2Morse;
 import com.example.challenge_meli.model.translators.Human2Morse;
 import com.example.challenge_meli.model.translators.Morse2Human;
 import org.springframework.stereotype.Service;
+import com.example.challenge_meli.repositories.Bits2MorseRepository;
 
 @Service
 public class TraductorService {
 
-    public String decodeBits2Morse(String bitSequence) throws InvalidInputException, InvalidTranslationException {
-        Bits2Morse decodeMorse = new Bits2Morse();
+    Bits2MorseRepository bits2MorseRepository;
+
+    public String decodeBits2Morse(String bitSequence, String username) throws InvalidInputException, InvalidTranslationException {
+        Bits2Morse decodeMorse = Bits2MorseRepository.getTranslator(username);
         decodeMorse.validateInput(bitSequence);
         return decodeMorse.translate(bitSequence);
     }

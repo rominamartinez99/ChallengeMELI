@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 
 
 public class Bits2Morse implements ITraductor{
-    private static int shortZero;
-    private static int mediumZero;
-    private static int longZero;
-    private static double oneThreshold;
+    private int shortZero;
+    private int mediumZero;
+    private int longZero;
+    private double oneThreshold;
     private static final String PATTERN_SEPARATOR_BY_ZEROS = "(?=(?!^)0)(?<!0)|(?!0)(?<=0)";
 
     public Bits2Morse() {
+
     }
 
     @Override
@@ -30,7 +31,7 @@ public class Bits2Morse implements ITraductor{
         }
     }
 
-    public static void calibrateTranslator(String bitSequence) {
+    public void calibrateTranslator(String bitSequence) {
         List<String> listSeparatedByZeros = separateByZeros(bitSequence);
         List<String> onesList = filterBySubstring(listSeparatedByZeros, "1");
         List<String> zerosList = filterBySubstring(listSeparatedByZeros, "0");
@@ -56,11 +57,11 @@ public class Bits2Morse implements ITraductor{
         }
     }
 
-    public static String dotOrDah(String substring) {
+    public String dotOrDah(String substring) {
         return substring.length() <= oneThreshold ? "." : "-";
     }
 
-    public static String amountSpaces(String substring) {
+    public String amountSpaces(String substring) {
         int value = substring.length();
 
         int longDistance = Math.abs(longZero - value);
