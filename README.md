@@ -26,8 +26,8 @@ Bonus:
 
 ## Tecnologías
 
-- JAVA
-- Springboot
+- JAVA 17
+- Spring Boot
 
 
 ## Uso
@@ -36,23 +36,28 @@ Al tener los endpoints segurizados, primero es necesario hacer el login con el s
 
 
 ```
+POST
 http://localhost:8080/auth/v1/login 
 {
   "userName": "admin",
   "password": "admin"
 } 
 ```
-Esto nos devuelve un token, el cual se debe usar para autorizar los demas endpoints (Bearer Token)
+Esto nos devuelve un token, el cual se debe usar para autorizar y autenticar los demas endpoints (Bearer Token)
 ```
+POST
 http://localhost:8080/calibrate/paris
 {"text":"110011111001111100110000011001111100000110011111001100000110011000001100110011000000000011001111100111110011000001100111110000011001111100110000011001100000110011001100000000001100111110011111001100000110011111000001100111110011000001100110000011001100110000000000"}
 
+POST
 http://localhost:8080/translate/bits2morse
 {"text":"110011001100110000011111001111100111110000011001111100110011000001100111110000000011110011111000001100000110011111001100110000011001100"}
 
+POST
 http://localhost:8080/translate/2human
 {"text":".... --- .-.. .-  -- . .-.. -----."}
 
+POST
 http://localhost:8080/translate/2morse
 {"text":"Hola meli"}
 ```

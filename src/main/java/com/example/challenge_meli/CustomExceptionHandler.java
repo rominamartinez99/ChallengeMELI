@@ -16,6 +16,6 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(InvalidTranslationException.class)
     public ResponseEntity<String> handleInvalidTranslationException(InvalidTranslationException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.PRECONDITION_FAILED);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
