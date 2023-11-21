@@ -5,9 +5,7 @@ import com.example.challenge_meli.model.InvalidTranslationException;
 import com.example.challenge_meli.model.translators.Bits2Morse;
 import com.example.challenge_meli.model.translators.Human2Morse;
 import com.example.challenge_meli.model.translators.Morse2Human;
-import com.example.challenge_meli.repositories.Bits2MorseRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -82,7 +80,7 @@ class TraductorServiceTest {
     void decodeBits2Morse() throws InvalidInputException, InvalidTranslationException {
         setUp();
         String bitsInput = "110011001100110000011111001111100111110000011001111100110011000001100111110000000011110011111000001100000110011111001100110000011001100";
-        String toMorse = traductorService.decodeBits2Morse(bitsInput,"admin");
+        String toMorse = traductorService.bits2Morse(bitsInput,"admin");
 
         Assertions.assertEquals(".... --- .-.. .-   -- . .-.. ..",toMorse);
     }

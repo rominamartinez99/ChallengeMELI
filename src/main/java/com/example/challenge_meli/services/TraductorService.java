@@ -13,7 +13,7 @@ public class TraductorService {
 
     Bits2MorseRepository bits2MorseRepository;
 
-    public String decodeBits2Morse(String bitSequence, String username) throws InvalidInputException, InvalidTranslationException {
+    public String bits2Morse(String bitSequence, String username) throws InvalidInputException, InvalidTranslationException {
         Bits2Morse decodeMorse = Bits2MorseRepository.getTranslator(username);
         decodeMorse.validateInput(bitSequence);
         return decodeMorse.decodeBits2Morse(bitSequence);

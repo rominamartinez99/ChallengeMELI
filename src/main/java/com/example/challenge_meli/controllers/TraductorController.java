@@ -25,7 +25,7 @@ public class TraductorController {
     public ResponseEntity<TranslationResponse> decodeMorse(@RequestBody TranslationRequest request) throws InvalidInputException, InvalidTranslationException {
         String bitSequence = request.getText();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ResponseEntity.ok(new TranslationResponse(traductorService.decodeBits2Morse(bitSequence, authentication.getName())));
+        return ResponseEntity.ok(new TranslationResponse(traductorService.bits2Morse(bitSequence, authentication.getName())));
     }
     @PostMapping("/2human")
     public ResponseEntity<TranslationResponse> morse2Human(@RequestBody TranslationRequest request) throws InvalidInputException{
