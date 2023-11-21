@@ -25,12 +25,6 @@ public class Bits2Morse implements ITraductor{
         }
     }
 
-    public void validateInput() throws InvalidTranslationException {
-        if ((shortZero == 0 && mediumZero == 0 && longZero == 0)) {
-            throw new InvalidTranslationException("Recordá calibrar previamente para tener una traducción certera :)");
-        }
-    }
-
     public void calibrateTranslator(String bitSequence) {
         List<String> listSeparatedByZeros = separateByZeros(bitSequence);
         List<String> onesList = filterBySubstring(listSeparatedByZeros, "1");
@@ -109,7 +103,6 @@ public class Bits2Morse implements ITraductor{
 
     @Override
     public String translate(String text) throws InvalidTranslationException {
-        validateInput();
         List<String> listSeparatedByZeros = separateByZeros(text);
 
         StringBuilder morseResult = new StringBuilder();
