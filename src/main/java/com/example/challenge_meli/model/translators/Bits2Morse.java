@@ -1,13 +1,12 @@
 package com.example.challenge_meli.model.translators;
 
 import com.example.challenge_meli.model.InvalidInputException;
-import com.example.challenge_meli.model.InvalidTranslationException;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 
-public class Bits2Morse implements ITraductor{
+public class Bits2Morse {
     private int shortZero;
     private int mediumZero;
     private int longZero;
@@ -17,8 +16,7 @@ public class Bits2Morse implements ITraductor{
     public Bits2Morse() {
 
     }
-
-    @Override
+    
     public void validateInput(String input) throws InvalidInputException {
         if (!input.matches("^[01]*1[01]*$")) {
             throw new InvalidInputException("La secuencia debe contener solo caracteres '0' y '1'. Además como mínimo debe haber un pulso");
@@ -100,9 +98,8 @@ public class Bits2Morse implements ITraductor{
         }
         return Arrays.stream(countArray).boxed().toArray(Integer[]::new);
     }
-
-    @Override
-    public String translate(String text) throws InvalidTranslationException {
+    
+    public String decodeBits2Morse(String text) {
         List<String> listSeparatedByZeros = separateByZeros(text);
 
         StringBuilder morseResult = new StringBuilder();

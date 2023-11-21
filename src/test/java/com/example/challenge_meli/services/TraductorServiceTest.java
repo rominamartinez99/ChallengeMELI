@@ -42,11 +42,10 @@ class TraductorServiceTest {
         Assertions.assertEquals("HOLA MELI",toHuman);
     }
 
-    @Test
-    void human2Morse() throws InvalidInputException {
-        String human = "hola meli";
-        String toMorse = traductorService.human2Morse(human);
-
+    @ParameterizedTest
+    @ValueSource(strings={"hola meli","HOLA MELI"})
+    void human2Morse(String humanText) throws InvalidInputException {
+        String toMorse = traductorService.human2Morse(humanText);
         Assertions.assertEquals(".... --- .-.. .-  -- . .-.. ..",toMorse);
     }
     @ParameterizedTest

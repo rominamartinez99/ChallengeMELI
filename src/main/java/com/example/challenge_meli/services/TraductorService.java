@@ -16,7 +16,7 @@ public class TraductorService {
     public String decodeBits2Morse(String bitSequence, String username) throws InvalidInputException, InvalidTranslationException {
         Bits2Morse decodeMorse = Bits2MorseRepository.getTranslator(username);
         decodeMorse.validateInput(bitSequence);
-        return decodeMorse.translate(bitSequence);
+        return decodeMorse.decodeBits2Morse(bitSequence);
     }
     public String translate2Human(String morseText) throws InvalidInputException{
         Morse2Human morse2Human = new Morse2Human();

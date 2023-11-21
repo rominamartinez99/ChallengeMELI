@@ -55,11 +55,11 @@ http://localhost:8080/translate/bits2morse
 
 POST
 http://localhost:8080/translate/2human
-{"text":".... --- .-.. .-  -- . .-.. -----."}
+{"text":".... --- .-.. .-  -- . .-.. .."}
 
 POST
 http://localhost:8080/translate/2morse
-{"text":"Hola meli"}
+{"text":"HOLA MELI"}
 ```
 ## Despliegue URL
 ```
